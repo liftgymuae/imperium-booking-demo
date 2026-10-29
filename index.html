@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Free Acquisition Training | IA</title>
+<meta name="description" content="Your call has been tentatively scheduled. Complete a few short steps to confirm it." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#080B16;
+    --panel:#0E1322;
+    --panel-2:#121829;
+    --line:rgba(255,255,255,.07);
+    --text:#E9EDF4;
+    --muted:#9AA3B2;
+    --muted-dim:#5C6678;
+    --gold:#CBAE86;
+    --gold-strong:#E3CB94;
+    --grad-gold:linear-gradient(180deg,#EBDAA3 0%,#CBA355 55%,#B98A34 100%);
+    --radius:18px;
+    --maxw:860px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:
+      radial-gradient(1200px 500px at 50% -120px, rgba(203,174,134,.10), transparent 60%),
+      var(--bg);
+    color:var(--text);
+    font-family:"Poppins",-apple-system,system-ui,"Helvetica Neue",Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    line-height:1.55;
+  }
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 20px}
+  .section{padding:34px 0}
+
+  /* ---- hero ---- */
+  .hero{padding-top:54px;text-align:center}
+  h1{
+    font-weight:900;font-size:clamp(28px,6vw,46px);line-height:1.08;
+    letter-spacing:-.02em;margin:0 0 14px;
+  }
+  h1 .accent{color:var(--gold)}
+  .sub{color:var(--muted);font-size:clamp(14px,2.4vw,17px);max-width:600px;margin:0 auto 30px}
+  .vid-label{font-weight:600;font-size:15px;margin:0 0 14px;text-align:center}
+
+  /* ---- video placeholder ---- */
+  .video{
+    position:relative;width:100%;aspect-ratio:16/9;border-radius:14px;overflow:hidden;
+    background:linear-gradient(135deg,#161b2b,#0c1120);
+    border:1px solid var(--line);
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 30px 70px -40px rgba(0,0,0,.9);
+  }
+  .video::after{content:"VSL PLACEHOLDER";position:absolute;bottom:14px;left:16px;font-size:11px;letter-spacing:.14em;color:var(--muted-dim);font-weight:600}
+  .play{
+    width:74px;height:74px;border-radius:50%;
+    background:rgba(0,0,0,.45);border:2px solid rgba(255,255,255,.85);
+    display:flex;align-items:center;justify-content:center;backdrop-filter:blur(2px);
+    transition:transform .2s ease;cursor:pointer;
+  }
+  .play:hover{transform:scale(1.06)}
+  .play svg{width:26px;height:26px;margin-left:4px;fill:#fff}
+
+  /* ---- steps ---- */
+  .heading{text-align:center;font-weight:800;font-size:clamp(24px,4.6vw,34px);letter-spacing:-.02em;margin:0 0 30px}
+  .heading .accent{color:var(--gold)}
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .card{
+    position:relative;background:var(--panel);border:1px solid var(--line);
+    border-radius:var(--radius);padding:24px 22px;overflow:hidden;min-height:210px;
+  }
+  .card .ghost{position:absolute;top:8px;right:16px;font-size:72px;font-weight:900;color:rgba(255,255,255,.04);line-height:1;pointer-events:none}
+  .card .kick{display:flex;align-items:center;gap:10px;color:var(--gold);font-size:12px;font-weight:700;letter-spacing:.16em;margin-bottom:16px}
+  .card .kick::before{content:"";width:22px;height:2px;background:var(--gold);border-radius:2px}
+  .card .ctext{font-weight:700;font-size:18px;line-height:1.35}
+  .btn-gold{
+    display:inline-flex;align-items:center;gap:10px;margin-top:18px;
+    background:var(--grad-gold);color:#2b2208;font-weight:700;font-size:14.5px;
+    border:none;border-radius:100px;padding:13px 22px;cursor:pointer;text-decoration:none;
+    box-shadow:0 14px 30px -14px rgba(203,163,85,.9);transition:transform .15s ease,filter .15s ease;
+  }
+  .btn-gold:hover{transform:translateY(-1px);filter:brightness(1.04)}
+  .btn-gold svg{width:16px;height:16px;fill:currentColor}
+
+  /* ---- agenda + faq ---- */
+  .center{text-align:center}
+  .faq-text{color:var(--muted);max-width:620px;margin:0 auto 26px;font-size:16px}
+  .cta-wrap{display:flex;justify-content:center}
+
+  /* ---- google notice ---- */
+  .notice{
+    display:flex;gap:16px;background:var(--panel);border:1px solid var(--line);
+    border-radius:var(--radius);padding:22px 24px;
+  }
+  .notice .ico{flex:0 0 auto;width:40px;height:40px;border-radius:12px;background:var(--panel-2);border:1px solid var(--line);display:flex;align-items:center;justify-content:center}
+  .notice .ico svg{width:20px;height:20px;stroke:var(--gold);fill:none;stroke-width:2}
+  .notice h3{margin:0 0 6px;font-size:16px;font-weight:700}
+  .notice p{margin:0;color:var(--muted);font-size:14.5px}
+  .notice strong{color:var(--text)}
+
+  /* ---- case studies ---- */
+  .cs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .cs{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  .cs .thumb{position:relative;aspect-ratio:16/10;background:linear-gradient(135deg,#1a2133,#0c1120);display:flex;align-items:center;justify-content:center}
+  .cs .thumb .play{width:48px;height:48px;border-width:2px}
+  .cs .thumb .play svg{width:16px;height:16px}
+  .cs .cap{padding:14px 16px 18px;font-size:14px;font-weight:600;line-height:1.4}
+  .btn-ghost{
+    display:inline-flex;align-items:center;gap:8px;margin:28px auto 0;
+    background:transparent;color:var(--gold-strong);border:1px solid rgba(203,174,134,.5);
+    border-radius:100px;padding:13px 26px;font-weight:600;font-size:14.5px;cursor:pointer;text-decoration:none;
+    transition:background .15s ease;
+  }
+  .btn-ghost:hover{background:rgba(203,174,134,.08)}
+
+  /* ---- footer ---- */
+  footer{border-top:1px solid var(--line);margin-top:30px;padding:40px 0 60px;text-align:center}
+  .brand{font-weight:900;letter-spacing:.3em;font-size:20px;margin-bottom:18px}
+  .legal{display:flex;gap:10px 22px;justify-content:center;flex-wrap:wrap;margin-bottom:18px}
+  .legal a{color:var(--muted);text-decoration:none;font-size:13px}
+  .legal a:hover{color:var(--text)}
+  .disclaimer{color:var(--muted-dim);font-size:11.5px;max-width:720px;margin:0 auto 14px;line-height:1.6}
+  .copy{color:var(--muted-dim);font-size:12px}
+
+  @media (max-width:720px){
+    .steps{grid-template-columns:1fr}
+    .cs-grid{grid-template-columns:1fr 1fr}
+    .card{min-height:0}
+  }
+  @media (max-width:460px){
+    .cs-grid{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <header class="hero wrap">
+    <h1>Your call has been <span class="accent">tentatively scheduled.</span></h1>
+    <p class="sub">Watch the video below and complete a few short steps to confirm it.</p>
+    <p class="vid-label">Watch this video for how to confirm your call</p>
+    <div class="video" role="button" aria-label="Play confirmation video">
+      <div class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+    </div>
+  </header>
+
+  <!-- STEPS -->
+  <section class="section wrap">
+    <h2 class="heading">Three things to do <span class="accent">right now</span></h2>
+    <div class="steps">
+      <div class="card">
+        <span class="ghost">01</span>
+        <div class="kick">STEP ONE</div>
+        <div class="ctext">Add the call to your calendar</div>
+        <a class="btn-gold" href="#">Add to calendar
+          <svg viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 16H5V9h14v11z"/></svg>
+        </a>
+      </div>
+      <div class="card">
+        <span class="ghost">02</span>
+        <div class="kick">STEP TWO</div>
+        <div class="ctext">Confirm your call via the text you'll receive shortly</div>
+      </div>
+      <div class="card">
+        <span class="ghost">03</span>
+        <div class="kick">STEP THREE</div>
+        <div class="ctext">Watch the video below to see the agenda for our call</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AGENDA VIDEO -->
+  <section class="section wrap">
+    <h2 class="heading" style="margin-bottom:22px">The agenda for our call</h2>
+    <div class="video" role="button" aria-label="Play agenda video">
+      <div class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+    </div>
+  </section>
+
+  <!-- FAQ CTA -->
+  <section class="section wrap center">
+    <p class="faq-text">We know you have questions. Click below to see the most common ones answered, so you go into your call with zero doubts.</p>
+    <div class="cta-wrap">
+      <a class="btn-gold" href="#">Get your questions answered
+        <svg viewBox="0 0 24 24"><path d="M10 17l5-5-5-5v10z"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- GOOGLE NOTICE -->
+  <section class="section wrap">
+    <div class="notice">
+      <div class="ico"><svg viewBox="0 0 24 24"><path d="M12 2L1 21h22L12 2zm0 15h0m0-8v5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div>
+        <h3>This Google update could affect your appointment</h3>
+        <p>You may notice an email from Google titled <strong>"Invitation from an unknown sender"</strong>. That's a recent Google Calendar update with a slight technical bug. If you see it, select <strong>Yes</strong> on the calendar appointment to avoid any confusion.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CASE STUDIES -->
+  <section class="section wrap center">
+    <h2 class="heading" style="margin-bottom:26px">Recent client case studies</h2>
+    <div class="cs-grid" id="csGrid"></div>
+    <a class="btn-ghost" href="#">View more case studies</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="wrap">
+    <div class="brand">IMPERIUM</div>
+    <div class="legal">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms &amp; Conditions</a>
+      <a href="#">Earnings Disclaimer</a>
+      <a href="#">Data Protection</a>
+    </div>
+    <p class="disclaimer">This website is not part of the YouTube, Google or Facebook website, Google Inc or Facebook Inc, and is not endorsed by YouTube, Google or Facebook in any way. FACEBOOK is a trademark of FACEBOOK Inc. YOUTUBE is a trademark of GOOGLE Inc.</p>
+    <p class="copy">© 2026 Imperium Labs LTD · Demo</p>
+  </footer>
+
+  <script>
+    // Case-study grid (placeholder thumbnails + captions)
+    var studies = [
+      "Tycho went from $0k to $13k per month",
+      "Cameron went from $5k to $60k per month at 18",
+      "Sam scaled from $0k to $85k per month in 14 months",
+      "Matt scaled from $0k to $52k per month in 5 months",
+      "Andro went from $0 to $22k per month in 6 months",
+      "Lewis went from $0 to $21k per month in 6 months",
+      "Lukas went from $120k to $240k per month in 8 months",
+      "Max went from $2k to $16k per month in 6 months",
+      "Christophe went from $0 to $50k per month in 6 months"
+    ];
+    var play = '<div class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="#fff"/></svg></div>';
+    document.getElementById('csGrid').innerHTML = studies.map(function(s){
+      return '<div class="cs"><div class="thumb">'+play+'</div><div class="cap">'+s+'</div></div>';
+    }).join('');
+  </script>
+</body>
+</html>
