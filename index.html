@@ -143,7 +143,9 @@
   .lnb-icon{font-size:48px;line-height:1;margin-bottom:12px;filter:drop-shadow(0 6px 20px rgba(255,180,60,.4));animation:lnb-sway 2.4s ease-in-out infinite}
   .lnb-title{margin:0 0 18px;font-size:23px;font-weight:800;line-height:1.28;color:#fff;letter-spacing:-.01em}
   .lnb-label{margin:0 0 7px;font-size:11px;font-weight:700;letter-spacing:.2em;color:var(--muted)}
-  .lnb-when{margin:0 0 7px;font-size:28px;font-weight:900;line-height:1.1;color:#ff5555}
+  .lnb-when{margin:0 0 7px;font-size:28px;line-height:1.15;color:#ff5555}
+  .lnb-when-date{font-weight:500}
+  .lnb-when-time{font-weight:900;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:4px;white-space:nowrap}
   .lnb-when-tag{display:inline-block;margin:0 0 18px;font-size:11.5px;font-weight:700;letter-spacing:.12em;color:#ff9a9a;background:rgba(239,68,68,.14);padding:4px 11px;border-radius:7px}
   .lnb-body{margin:0 0 22px;font-size:15px;line-height:1.55;color:#c7cedd}
   .lnb-cta{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;box-sizing:border-box;background:var(--grad-gold);color:#241b02;text-decoration:none;font-weight:900;font-size:17.5px;letter-spacing:.01em;padding:19px 20px;border-radius:14px;cursor:pointer;box-shadow:0 14px 34px -10px rgba(203,163,85,.9);animation:lnb-pulse 1.5s ease-in-out infinite;transition:transform .15s ease}
@@ -292,10 +294,12 @@
     var lateNight = hour >= START_HOUR || hour < END_HOUR;
     if (!lateNight) return;
 
-    var when = new Intl.DateTimeFormat('en-US', {
-      weekday: 'long', month: 'long', day: 'numeric',
+    var dateFmt = new Intl.DateTimeFormat('en-US', {
+      weekday: 'long', month: 'long', day: 'numeric', timeZone: tz
+    }).format(booked).replace(/,/g, '');          // "Thursday October 29" (no commas)
+    var timeFmt = new Intl.DateTimeFormat('en-US', {
       hour: 'numeric', minute: '2-digit', hour12: true, timeZone: tz
-    }).format(booked);
+    }).format(booked);                             // "4:00 AM"
 
     var firstName = (p.get('invitee_full_name') || '').trim().split(/\s+/)[0] || '';
     var rescheduleUrl = 'https://app.iclosed.io/reschedulings/' + encodeURIComponent(callId);
@@ -309,7 +313,7 @@
           '<div class="lnb-icon">&#127769;</div>' +
           '<h2 id="lnb-title" class="lnb-title"></h2>' +
           '<p class="lnb-label">YOU PICKED</p>' +
-          '<p id="lnb-when" class="lnb-when"></p>' +
+          '<p id="lnb-when" class="lnb-when"><span class="lnb-when-date"></span> <span class="lnb-when-time"></span></p>' +
           '<span class="lnb-when-tag">&#128205; YOUR LOCAL TIME</span>' +
           '<p class="lnb-body">Almost everyone who picks this slot does it by mistake &mdash; thinking it\'s the afternoon. ' +
           'You\'ll be fast asleep. Grab a time you\'ll actually show up for &#128071;</p>' +
@@ -319,9 +323,11 @@
           '<button id="lnb-keep" type="button" class="lnb-keep">No thanks &mdash; I\'ll be awake then</button>' +
         '</div>';
 
-      document.getElementById('lnb-title').textContent =
-        (firstName ? firstName + ', ' : '') + 'your call is in the middle of the night';
-      document.getElementById('lnb-when').textContent = when;
+      document.getElementById('lnb-title').textContent = firstName
+        ? firstName + ', are you sure this is the correct time?'
+        : 'Are you sure this is the correct time?';
+      document.querySelector('.lnb-when-date').textContent = dateFmt + ' at';
+      document.querySelector('.lnb-when-time').textContent = timeFmt;
       document.getElementById('lnb-resched').href = rescheduleUrl;
 
       o.classList.add('show');
